@@ -54,7 +54,7 @@ jobs:
 
     - name: Build Installer
       shell: bash
-      working-directory: ./build
+      working-directory: build
       run: /
         echo ${{ steps.strings.outputs.build-output-dir }}
         ../Setup/build_installer.sh -p ${{ matrix.name }} -t "0.0.1" -n "ICST_AmbiPlugins_${{ matrix.name }}_0.0.1"
