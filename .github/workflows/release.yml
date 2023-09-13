@@ -85,6 +85,17 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+      - name: Download artiacts
+        uses: actions/download-artifact@v3
+        with:
+          path: allartifacts
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            allartifacts/*.*
       #- name: Create Release 
       #  uses: ncipollo/release-action@v1
       #  with:
