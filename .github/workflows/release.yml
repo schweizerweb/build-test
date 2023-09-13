@@ -90,6 +90,10 @@ jobs:
         with:
           path: allartifacts
 
+      - name: Ls
+        shell: bash
+        run: ls allartifacts/*
+        
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
