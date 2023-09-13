@@ -55,7 +55,9 @@ jobs:
     - name: Build Installer
       shell: bash
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: ../Setup/build_installer.sh -p ${{ matrix.name }} -t "${{ needs.prepare.outputs.version }}" -n "ICST_AmbiPlugins_${{ matrix.name }}_${{ needs.prepare.outputs.version }}"
+      run: /
+        echo ${{ steps.strings.outputs.build-output-dir }}
+        ../Setup/build_installer.sh -p ${{ matrix.name }} -t "0.0.1" -n "ICST_AmbiPlugins_${{ matrix.name }}_0.0.1"
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
