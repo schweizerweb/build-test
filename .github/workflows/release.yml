@@ -1,0 +1,81 @@
+name: Release for multiple platforms
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+
+      # build on
+      # Windows: cl
+      # MacOS: clang/clang++
+      # Ubuntu: clang/clang++
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        build_type: [Release]
+        c_compiler: [clang, cl]
+        include:
+          - os: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            name: Windows
+          - os: ubuntu-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+            name: Linux
+          - os: macos-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+            name: macOS
+        exclude:
+          - os: windows-latest
+            c_compiler: clang
+          - os: ubuntu-latest
+            c_compiler: cl
+          - os: macos-latest
+            c_compiler: cl
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Set reusable strings
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+    - name: Build Installer
+      shell: bash
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: ../Setup/build_installer.sh -p ${{ matrix.name }} -t "${{ needs.prepare.outputs.version }}" -n "ICST_AmbiPlugins_${{ matrix.name }}_${{ needs.prepare.outputs.version }}"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.name }}
+        path: ${{ steps.strings.outputs.build-output-dir }}/packages/*
+
+  publish:
+    name: Publish Release
+    needs: build
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      #- name: Create Release 
+      #  uses: ncipollo/release-action@v1
+      #  with:
+      #    artifacts: "release.tar.gz,foo/*.txt"
+      #    bodyFile: "body.md"
+      - name: Create Release
+        shell: bash
+        run: |
+          echo "TODO"   
