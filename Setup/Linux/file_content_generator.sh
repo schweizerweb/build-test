@@ -33,5 +33,7 @@ write_file()
 
 build_installer()
 {
-    zip -r "${PACKAGE_NAME}.zip" ./bin/*.*
+    zip -r "${PACKAGE_NAME}.zip" bin/*
+    mkdir packages
+    cp "${PACKAGE_NAME}.zip" packages/
 }
