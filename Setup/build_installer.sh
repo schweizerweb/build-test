@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 verbose=0
 usage() {                                 # Function: Print a help message.
   echo "Usage: $0 [ -p PLATFORM_FOLDER ] [ -t VERSION_TAG ] [ -n PACKAGE_NAME ]" 1>&2 
