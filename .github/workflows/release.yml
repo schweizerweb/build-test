@@ -66,6 +66,12 @@ jobs:
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ../Setup/build_installer.sh -p ${{ matrix.name }} -t "0.0.1" -n "ICST_AmbiPlugins_${{ matrix.name }}_0.0.1"
 
+    - if: ${{ runner.os == 'Windows' }}
+      name: echo win
+      shell: bash
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: cat win64_temp.iss
+
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
