@@ -40,6 +40,7 @@ source $SCRIPT_DIR/$PLATFORM_FOLDER/definitions.sh
 source $SCRIPT_DIR/$PLATFORM_FOLDER/file_content_generator.sh
 
 README_PATH="$(get_full_path "${SCRIPT_DIR}/readme.txt")"
+echo "README: ${README_PATH}"
 
 # load template file and prepare output
 originalTemplateFile=$SCRIPT_DIR/$PLATFORM_FOLDER/$templateFileName
