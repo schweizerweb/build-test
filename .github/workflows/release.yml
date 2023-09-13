@@ -57,8 +57,8 @@ jobs:
       shell: bash
       run: |
         wget http://s.sudre.free.fr/Software/files/Packages.dmg
-        hdiutil attach Packages.dmg
-        sudo installer -package "/Volumes/Packages/Install Packages.pkg" -target /
+        hdiutil attach Packages.dmg -mountpoint "/Volumes/PackagesTmp"
+        sudo installer -package "/Volumes/PackagesTmp/Install Packages.pkg" -target /
         hdiutil detach /Volumes/Packages
 
     - name: Build Installer
