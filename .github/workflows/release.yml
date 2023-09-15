@@ -97,7 +97,7 @@ jobs:
       - name: Set file list
         id: file_list
         shell: bash
-        run: echo "file_list="$(find -type f allartifacts/*)"" >> "$GITHUB_OUTPUT"
+        run: echo "file_list="$(find -type f "allartifacts/*")"" >> "$GITHUB_OUTPUT"
   
       - name: Print file list
         shell: bash
