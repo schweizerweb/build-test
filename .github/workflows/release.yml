@@ -97,9 +97,9 @@ jobs:
       - name: Set file list
         id: file_list
         shell: bash
-        run: echo "file_list="$(find allartifacts/*)"" >> "$GITHUB_OUTPUT"
+        run: echo "file_list="$(find -type f allartifacts/*)"" >> "$GITHUB_OUTPUT"
   
-      - name: Pring file list
+      - name: Print file list
         shell: bash
         run: |
           echo ${{ steps.file_list.outputs.file_list }}
@@ -109,5 +109,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            "${{ steps.file_list.outputs.file_list }}"
+            ${{ steps.file_list.outputs.file_list }}
       
