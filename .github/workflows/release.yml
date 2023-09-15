@@ -97,21 +97,17 @@ jobs:
       - name: Set file list
         id: file_list
         shell: bash
-        run: |
-          echo "file_list="$(find allartifacts/*)"" >> "$GITHUB_OUTPUT"
+        run: echo "file_list="$(find allartifacts/*)"" >> "$GITHUB_OUTPUT"
   
+      - name: Pring file list
+        shell: bash
+        run: |
+          echo ${{ steps.file_list.outputs.file_list }}
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ${{ steps.file_list.outputs.file_list }}
-      #- name: Create Release 
-      #  uses: ncipollo/release-action@v1
-      #  with:
-      #    artifacts: "release.tar.gz,foo/*.txt"
-      #    bodyFile: "body.md"
-      - name: Create Release
-        shell: bash
-        run: |
-          echo "TODO"   
+            "${{ steps.file_list.outputs.file_list }}"
+      
