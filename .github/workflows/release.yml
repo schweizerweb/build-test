@@ -27,7 +27,7 @@ jobs:
           run: |
             [ "${{github.event_name}}" == "workflow_dispatch" ] && v=${{github.event.inputs.version}} || v=${GITHUB_REF/refs\/tags\//}
             va=${v}
-            hasTweak={va~='[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+}
+            hasTweak={va~='[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'}
             echo "HASTWEAK=${hasTweak}" >> "$GITHUB_OUTPUT" 
             echo ::set-output name=VERSION::${va}  
 
