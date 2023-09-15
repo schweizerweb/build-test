@@ -98,7 +98,7 @@ jobs:
         id: file_list
         shell: bash
         run: |
-          echo "file_list=$(find allartifacts/*)" >> "$GITHUB_OUTPUT"
+          echo "file_list="$(find allartifacts/*)"" >> "$GITHUB_OUTPUT"
   
       - name: Release
         uses: softprops/action-gh-release@v1
